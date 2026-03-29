@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портал Лицея Aqbobek</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .app {
+            min-height: 100vh;
+            background: #f8fafc;
+        }
+
+        /* Login Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-section p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .login-form {
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .demo-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .demo-info p {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .demo-info small {
+            display: block;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-menu button {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .nav-menu button:hover {
+            background: #f8fafc;
+            color: #333;
+        }
+
+        .nav-menu button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Dashboard Styles */
+        .dashboard h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-info h3 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-change {
+            font-size: 0.85rem;
+            color: #10b981;
+            font-weight: 500;
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .recent-activity h3 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .activity-item:hover {
+            background: #f1f5f9;
+        }
+
+        .activity-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+        }
+
+        .activity-content p {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-content small {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem;
+            }
+            
+            .logo-section h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dashboard {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="login-container">
+            <div class="login-card">
+                <div class="logo-section">
+                    <h1>🎓 Aqbobek Portal</h1>
+                    <p>Единый образовательный портал</p>
+                </div>
+                
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="Введите ваш email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" id="password" placeholder="Введите пароль" required>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">
+                        Войти в систему
+                    </button>
+                </form>
+                
+                <div class="demo-info">
+                    <p>Демо доступ:</p>
+                    <small>admin@aqbobek.kz / admin123</small><br/>
+                    <small>teacher@aqbobek.kz / teacher123</small><br/>
+                    <small>student@aqbobek.kz / student123</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="mainApp" class="hidden">
+            <header class="header">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>🎓 Aqbobek Portal</h1>
+                    </div>
+                    
+                    <nav class="nav-menu">
+                        <button class="nav-btn active" data-tab="dashboard">📊 Дашборд</button>
+                        <button class="nav-btn" data-tab="grades">📚 Оценки</button>
+                        <button class="nav-btn" data-tab="schedule">📅 Расписание</button>
+                        <button class="nav-btn" data-tab="analytics">📈 Аналитика</button>
+                    </nav>
+                    
+                    <button id="logoutBtn" class="logout-btn">
+                        🚪 Выйти
+                    </button>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <!-- Dashboard Tab -->
+                <div id="dashboard" class="tab-content">
+                    <h2>📊 Панель управления</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📚</div>
+                            <div class="stat-info">
+                                <h3>Средний балл</h3>
+                                <p class="stat-value">4.5</p>
+                                <p class="stat-change">+0.3 за месяц</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-info">
+                                <h3>Посещаемость</h3>
+                                <p class="stat-value">95%</p>
+                                <p class="stat-change">+2% за неделю</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">🏆</div>
+                            <div class="stat-info">
+                                <h3>Достижения</h3>
+                                <p class="stat-value">12</p>
+                                <p class="stat-change">+2 за месяц</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-info">
+                                <h3>AI-рекомендации</h3>
+                                <p class="stat-value">3</p>
+                                <p class="stat-change">Новые</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>🔔 Последние уведомления</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <span class="activity-icon">📚</span>
+                                <div class="activity-content">
+                                    <p>Новая оценка по математике: 5/5</p>
+                                    <small>2 часа назад</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <span class="activity-icon">📅</span>
+                                <div class="activity-content">
+                                    <p>Расписание на завтра обновлено</p>
+                                    <small>5 часов назад</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <span class="activity-icon">🏆</span>
+                                <div class="activity-content">
+                                    <p>Получено достижение "Отличник месяца"</p>
+                                    <small>1 день назад</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grades Tab -->
+                <div id="grades" class="tab-content hidden">
+                    <h2>📚 Мои оценки</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>Средний балл</h3>
+                                <p class="stat-value">4.6</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>Всего оценок</h3>
+                                <p class="stat-value">28</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>Пятерок</h3>
+                                <p class="stat-value">15</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>Последние оценки</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <span class="activity-icon">📐</span>
+                                <div class="activity-content">
+                                    <p>Математика: 5/5 (Контрольная)</p>
+                                    <small>28 марта</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <span class="activity-icon">⚛️</span>
+                                <div class="activity-content">
+                                    <p>Физика: 4/5 (Лабораторная)</p>
+                                    <small>27 марта</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <span class="activity-icon">🧪</span>
+                                <div class="activity-content">
+                                    <p>Химия: 5/5 (Тест)</p>
+                                    <small>26 марта</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schedule Tab -->
+                <div id="schedule" class="tab-content hidden">
+                    <h2>📅 Расписание на сегодня</h2>
+                    
+                    <div class="recent-activity">
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">8:00</div>
+                                <div class="activity-content">
+                                    <p>Математика - Ахметов А.А.</p>
+                                    <small>Кабинет 201</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">9:00</div>
+                                <div class="activity-content">
+                                    <p>Физика - Смагулов К.М.</p>
+                                    <small>Кабинет 305</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">10:00</div>
+                                <div class="activity-content">
+                                    <p>Перерыв</p>
+                                    <small>Отдых</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">10:30</div>
+                                <div class="activity-content">
+                                    <p>Химия - Нурмагамбетова Г.С.</p>
+                                    <small>Кабинет 203</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">11:30</div>
+                                <div class="activity-content">
+                                    <p>Литература - Кожахметова А.Б.</p>
+                                    <small>Кабинет 102</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div id="analytics" class="tab-content hidden">
+                    <h2>📈 Моя аналитика</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-info">
+                                <h3>График успеваемости</h3>
+                                <p class="stat-value">↑</p>
+                                <p class="stat-change">Позитивная динамика</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">🤖</div>
+                            <div class="stat-info">
+                                <h3>AI-рекомендации</h3>
+                                <p class="stat-value">3</p>
+                                <p class="stat-change">Активные</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>🤖 AI-рекомендации</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <span class="activity-icon">🔴</span>
+                                <div class="activity-content">
+                                    <p>Уделите внимание физике - последние результаты ниже ожидаемых</p>
+                                    <small>Высокий приоритет</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <span class="activity-icon">🟡</span>
+                                <div class="activity-content">
+                                    <p>Рекомендуется повторить темы по алгебре перед контрольной</p>
+                                    <small>Средний приоритет</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <span class="activity-icon">🟢</span>
+                                <div class="activity-content">
+                                    <p>Отличная работа по литературе! Продолжайте в том же духе</p>
+                                    <small>Низкий приоритет</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Login functionality
+        const loginForm = document.getElementById('loginForm');
+        const loginScreen = document.getElementById('loginScreen');
+        const mainApp = document.getElementById('mainApp');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation (in real app, this would be server-side)
+            if (email && password) {
+                loginScreen.classList.add('hidden');
+                mainApp.classList.remove('hidden');
+            }
+        });
+
+        logoutBtn.addEventListener('click', function() {
+            loginScreen.classList.remove('hidden');
+            mainApp.classList.add('hidden');
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+        });
+
+        // Tab navigation
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetTab = this.getAttribute('data-tab');
+                
+                // Update active button
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show target tab
+                tabContents.forEach(tab => tab.classList.add('hidden'));
+                document.getElementById(targetTab).classList.remove('hidden');
+            });
+        });
+
+        // Add some interactivity
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Auto-fill demo credentials for easier testing
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                document.getElementById('email').value = 'student@aqbobek.kz';
+                document.getElementById('password').value = 'student123';
+            }
+        });
+    </script>
+</body>
+</html>
