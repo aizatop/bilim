@@ -1,21 +1,22 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@pages': path.resolve(__dirname, './src/pages'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
-      '@utils': path.resolve(__dirname, './src/utils'),
-      '@types': path.resolve(__dirname, './src/types'),
-      '@stores': path.resolve(__dirname, './src/stores'),
-      '@contexts': path.resolve(__dirname, './src/contexts'),
-      '@api': path.resolve(__dirname, './src/api'),
-      '@assets': path.resolve(__dirname, './src/assets'),
+      '@': resolve(__dirname, 'src'),
+      '@components': resolve(__dirname, 'src/components'),
+      '@pages': resolve(__dirname, 'src/pages'),
+      '@hooks': resolve(__dirname, 'src/hooks'),
+      '@utils': resolve(__dirname, 'src/utils'),
+      '@types': resolve(__dirname, 'src/types'),
+      '@stores': resolve(__dirname, 'src/stores'),
+      '@contexts': resolve(__dirname, 'src/contexts'),
+      '@api': resolve(__dirname, 'src/api'),
+      '@assets': resolve(__dirname, 'src/assets'),
     },
   },
   server: {
